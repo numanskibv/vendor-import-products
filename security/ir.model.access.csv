@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vendor_import_wizard_user,vendor.import.wizard user,model_vendor_import_wizard,base.group_user,1,1,1,1
+access_vendor_import_wizard_column_user,vendor.import.wizard.column user,model_vendor_import_wizard_column,base.group_user,1,1,1,1
+access_vendor_import_image_queue_user,vendor.import.image.queue user,model_vendor_import_image_queue,base.group_user,1,1,1,0
+access_vendor_category_rule_user,vendor.category.rule user,model_vendor_category_rule,base.group_user,1,1,1,1
+access_product_brand_user,product.brand user,model_product_brand,base.group_user,1,1,1,1
+access_vendor_import_profile_user,vendor.import.profile user,model_vendor_import_profile,base.group_user,1,1,1,1
+access_vendor_import_profile_line_user,vendor.import.profile.line user,model_vendor_import_profile_line,base.group_user,1,1,1,1
+access_vendor_import_help_user,vendor.import.help user,model_vendor_import_help,base.group_user,1,0,1,0

@@ -225,6 +225,67 @@ class VendorImportProfile(models.Model):
                 "type": "success",
             },
         }
+        """Vind een importprofiel en kolommapping voor de gegeven headers.
+
+        Geeft een tuple (profile, role_to_index, image_indices) terug of
+        (False, {}, []) als er geen passend profiel is.
+
+        - vendor: res.partner record (of False)
+        - filename: bestandsnaam (str)
+        - headers_raw: lijst van originele kolomkoppen
+        - norm_func: functie die een kop normaliseert (zoals _norm_header)
+        """
+
+        Profile = self.env["vendor.import.profile"].sudo()
+        profiles = Profile.search([("active", "=", True)])
+
+        if vendor:
+            vendor_profiles = profiles.filtered(lambda p: p.vendor_id == vendor)
+            if vendor_profiles:
+                profiles = vendor_profiles
+
+        filename = (filename or "").strip()
+        if filename and any(p.file_prefix for p in profiles):
+
+            def _match_prefix(p):
+                if not p.file_prefix:
+                    return True
+                return filename.startswith(p.file_prefix)
+
+            profiles = profiles.filtered(_match_prefix)
+
+        if not profiles:
+            return False, {}, []
+
+        headers_norm = [norm_func(h) for h in headers_raw]
+
+        for profile in profiles:
+            role_to_index = {}
+            image_indices = []
+            ok = True
+            for line in profile.line_ids:
+                pattern_norm = norm_func(line.header_pattern or "")
+                try:
+                    idx = headers_norm.index(pattern_norm)
+                except ValueError:
+                    idx = None
+
+                if idx is None:
+                    if line.required:
+                        ok = False
+                        break
+                    continue
+
+                # Bewaar mapping voor deze rol
+                role_to_index[line.role] = idx
+                if line.role in {"image_main", "image_extra"}:
+                    if idx not in image_indices:
+                        image_indices.append(idx)
+
+            if ok and role_to_index:
+                return profile, role_to_index, image_indices
+
+        return False, {}, []
 
 
 class VendorImportProfileLine(models.Model):

@@ -60,14 +60,6 @@
                             </group>
                             <separator string="Draft rules are created as inactive by default so they can be reviewed and adjusted before activation."/>
                         </page>
-                            <page string="Normalisatie">
-                                <group>
-                                    <button name="open_attribute_normalization_wizard" string="Open normalisatie-wizard" type="object" class="oe_highlight"/>
-                                    <div>
-                                        <p class="oe_grey">Gebruik deze wizard om attributen (kleur, maat) te normaliseren voordat je importeert.</p>
-                                    </div>
-                                </group>
-                            </page>
                     </notebook>
                 </sheet>
                 <footer>

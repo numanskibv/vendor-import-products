@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Dit bestand kan leeg blijven of verwijderd worden als er geen serveracties meer zijn. -->
+    <record id="action_vendor_import_reset_image_queue" model="ir.actions.server">
+        <field name="name">Reset Vendor Image Queue</field>
+        <field name="model_id" ref="model_vendor_import_wizard"/>
+        <field name="state">code</field>
+        <field name="code"><![CDATA[
+# Deprecated: logic moved to wizard method action_reset_image_queue.
+# This server action is kept only for compatibility and does nothing.
+action = None
+        ]]></field>
+    </record>
 </odoo>

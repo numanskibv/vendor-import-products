@@ -467,20 +467,26 @@ class VendorImportWizard(models.TransientModel):
             wizard.test_file_sha1 = False
             wizard.test_report_html = False
 
-    def _get_supplier_prefix(self, vendor):
-        """Derive supplier prefix from reference, with fallback to name."""
-        if not vendor:
-            return ""
-        prefix = (vendor.ref or "").strip().upper()
-        if not prefix and "TGH" in (vendor.display_name or "").upper():
-            return "TGH"
-        return prefix
-
     @api.onchange("vendor_id")
     def _onchange_vendor_id_set_draft_vendor_code(self):
+        """Derive a default vendor code for draft rules from the supplier.
+
+        Uses the same supplier prefix logic as the main parser (e.g. 'TGH').
+        """
         for wizard in self:
-            supplier_prefix = self._get_supplier_prefix(wizard.vendor_id)
-            code = (supplier_prefix or "any").lower()
+            vendor = wizard.vendor_id
+            if not vendor:
+                continue
+            supplier_prefix = (vendor.ref or "").strip().upper()
+            if not supplier_prefix:
+                vendor_name_u = (vendor.display_name or "").upper()
+                if "TGH" in vendor_name_u:
+                    supplier_prefix = "TGH"
+            code = (supplier_prefix or "").lower() or "any"
+            if code not in {
+                c[0] for c in self.env["vendor.category.rule"]._selection_vendor_code()
+            }:
+                code = "any"
             wizard.draft_vendor_code = code
 
     def _parse_tgh_excel(self):
@@ -2151,24 +2157,5 @@ class VendorImportWizard(models.TransientModel):
                 "message": message,
                 "type": "success",
                 "sticky": True,
-            },
-        }
-
-    def open_attribute_normalization_wizard(self):
-        self.ensure_one()
-        if not self.file:
-            raise UserError(
-                _("Upload eerst een bestand voordat je de normalisatie-wizard opent.")
-            )
-        return {
-            "type": "ir.actions.act_window",
-            "name": _("Normalisatie van attributen"),
-            "res_model": "vendor.attribute.normalization.wizard",
-            "view_mode": "form",
-            "target": "new",
-            "context": {
-                "default_file": self.file,
-                "default_filename": self.filename,
-                "default_vendor_id": self.vendor_id.id,
             },
         }
