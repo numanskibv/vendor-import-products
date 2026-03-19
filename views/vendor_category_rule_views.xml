@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_vendor_category_rule_tree" model="ir.ui.view">
+        <field name="name">vendor.category.rule.tree</field>
+        <field name="model">vendor.category.rule</field>
+        <field name="arch" type="xml">
+            <list string="Categorie regels" default_order="priority desc, keyword">
+                <header>
+                    <button
+                        name="action_seed_default_rules"
+                        type="object"
+                        string="Standaardregels aanmaken"
+                        class="btn-primary"
+                        help="Maak de standaard EMENER categorie-regels aan. Bestaande regels worden niet gedupliceerd."
+                    />
+                </header>
+                <field name="active"/>
+                <field name="vendor_code"/>
+                <field name="match_type"/>
+                <field name="keyword"/>
+                <field name="priority"/>
+                <field name="category_id"/>
+                <field name="audience"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_vendor_category_rule_form" model="ir.ui.view">
+        <field name="name">vendor.category.rule.form</field>
+        <field name="model">vendor.category.rule</field>
+        <field name="arch" type="xml">
+            <form string="Categorie regel">
+                <sheet>
+                    <notebook>
+                        <page string="Algemeen">
+                            <group>
+                                <field name="name"/>
+                                <field name="active"/>
+                            </group>
+                            <group string="Voorwaarden">
+                                <field name="vendor_code"/>
+                                <field name="match_type"/>
+                                <field name="keyword"/>
+                                <field name="priority"/>
+                                <field name="audience"/>
+                            </group>
+                            <group string="Actie">
+                                <field name="category_id"/>
+                            </group>
+                            <group string="Notities">
+                                <field name="notes" nolabel="1"/>
+                            </group>
+                        </page>
+                        <page string="Testomgeving">
+                            <group>
+                                <field
+                                    name="test_product_name"
+                                    string="Test productnaam"
+                                    placeholder="Bijv. 'TGH Softshell Jacket heren'"
+                                    help="Geef een voorbeeld productnaam op om te zien welke categorie-regel zou gelden."
+                                />
+                                <field
+                                    name="test_vendor_code"
+                                    string="Test leverancier"
+                                    help="Simuleer vanaf welke leverancier (bijv. TGH) de naam wordt geïmporteerd."
+                                />
+                            </group>
+                            <group string="Resultaat">
+                                <field
+                                    name="test_result"
+                                    nolabel="1"
+                                    readonly="1"
+                                    widget="text"
+                                    placeholder="Hier verschijnt het resultaat van de test."
+                                />
+                            </group>
+                            <footer>
+                                <button
+                                    name="action_test_rule_engine"
+                                    type="object"
+                                    string="Test Regel Engine"
+                                    class="btn-primary"
+                                    help="Voer een testsimulatie uit met de ingevulde productnaam en leverancier."
+                                />
+                            </footer>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_vendor_category_rule" model="ir.actions.act_window">
+        <field name="name">Categorie regels</field>
+        <field name="res_model">vendor.category.rule</field>
+        <field name="view_mode">list,form</field>
+        <field name="target">current</field>
+        <field name="context">{'active_test': False}</field>
+    </record>
+
+    <!-- Menu onder Vendor Import -->
+    <menuitem
+        id="menu_vendor_category_rule"
+        name="Categorie regels"
+        parent="menu_vendor_import_root"
+        action="action_vendor_category_rule"
+        sequence="20"
+    />
+</odoo>

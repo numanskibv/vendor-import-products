@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Root menu for Vendor Import under Inventory -->
+    <menuitem
+        id="menu_vendor_import_root"
+        name="Vendor Import"
+        parent="stock.menu_stock_root"
+        sequence="250"
+    />
+
+    <!-- Eigen instellingenformulier voor Vendor Import -->
+    <record id="res_config_settings_view_form_vendor_import" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.vendor.import</field>
+        <field name="model">res.config.settings</field>
+        <field name="arch" type="xml">
+            <form string="Vendor Import instellingen">
+                <sheet>
+                    <group string="Vendor Import">
+                        <field name="vendor_import_default_margin"/>
+                        <field name="vendor_import_template_image_only"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="execute" type="object" string="Opslaan" class="btn-primary"/>
+                    <button string="Annuleren" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Actie om het instellingenformulier te openen -->
+    <record id="action_vendor_import_settings" model="ir.actions.act_window">
+        <field name="name">Vendor Import instellingen</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="res_config_settings_view_form_vendor_import"/>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Menu-item onder het Vendor Import-menu -->
+    <menuitem
+        id="menu_vendor_import_settings"
+        name="Instellingen"
+        parent="menu_vendor_import_root"
+        action="action_vendor_import_settings"
+        sequence="90"
+    />
+
+    <record id="action_vendor_import_profile" model="ir.actions.act_window">
+        <field name="name">Importprofielen</field>
+        <field name="res_model">vendor.import.profile</field>
+        <field name="view_mode">list,form</field>
+        <field name="target">current</field>
+    </record>
+
+    <menuitem
+        id="menu_vendor_import_profile"
+        name="Importprofielen"
+        parent="menu_vendor_import_root"
+        action="action_vendor_import_profile"
+        sequence="15"
+    />
+
+</odoo>
+

@@ -1,0 +1,102 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following module:
+# 	* vendor_import_module
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-18 00:00+0000\n"
+"PO-Revision-Date: 2026-02-18 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: vendor_import_module
+#: model_terms:ir.ui.view,arch_db:vendor_import_module.view_vendor_import_wizard_form
+msgid "Import TGH Excel"
+msgstr "Importeer TGH Excel"
+
+#. module: vendor_import_module
+#: model_terms:ir.ui.view,arch_db:vendor_import_module.view_vendor_import_wizard_form
+msgid "Supplier"
+msgstr "Leverancier"
+
+#. module: vendor_import_module
+#: model_terms:ir.ui.view,arch_db:vendor_import_module.view_vendor_import_wizard_form
+msgid "Margin (%)"
+msgstr "Marge (%)"
+
+#. module: vendor_import_module
+#: model_terms:ir.ui.view,arch_db:vendor_import_module.view_vendor_import_wizard_form
+msgid "Overwrite Prices"
+msgstr "Overschrijf prijzen"
+
+#. module: vendor_import_module
+#: model_terms:ir.ui.view,arch_db:vendor_import_module.view_vendor_import_wizard_form
+msgid "Archive Missing Variants"
+msgstr "Archiveer ontbrekende varianten"
+
+#. module: vendor_import_module
+#: model_terms:ir.ui.view,arch_db:vendor_import_module.view_vendor_import_wizard_form
+msgid "Import"
+msgstr "Importeer"
+
+#. module: vendor_import_module
+#: model_terms:ir.ui.view,arch_db:vendor_import_module.view_vendor_import_wizard_form
+msgid "Cancel"
+msgstr "Annuleren"
+
+#. module: vendor_import_module
+#: model_terms:ir.ui.view,arch_db:vendor_import_module.view_partner_form_vendor_import_manual
+msgid "Vendor Import"
+msgstr "Leveranciersimport"
+
+#. module: vendor_import_module
+#: code:addons/vendor_import_module/models/res_partner.py:0
+msgid "Vendor Import Manual"
+msgstr "Handleiding leveranciersimport"
+
+#. module: vendor_import_module
+#: code:addons/vendor_import_module/wizards/vendor_import_wizard.py:0
+msgid "Manual"
+msgstr "Handleiding"
+
+#. module: vendor_import_module
+#: code:addons/vendor_import_module/wizards/vendor_import_wizard.py:0
+msgid "Please upload a file to import."
+msgstr "Upload een bestand om te importeren."
+
+#. module: vendor_import_module
+#: code:addons/vendor_import_module/wizards/vendor_import_wizard.py:0
+msgid "Please select a supplier."
+msgstr "Selecteer een leverancier."
+
+#. module: vendor_import_module
+#: code:addons/vendor_import_module/wizards/vendor_import_wizard.py:0
+msgid "Missing filename. Please upload the file again so the filename is sent to Odoo."
+msgstr "Bestandsnaam ontbreekt. Upload het bestand opnieuw zodat de bestandsnaam naar Odoo wordt meegestuurd."
+
+#. module: vendor_import_module
+#: code:addons/vendor_import_module/wizards/vendor_import_wizard.py:0
+msgid "The selected supplier is missing a Reference (Internal Reference).\n\nWhy this matters: this import validates that the uploaded file belongs to the selected supplier by checking the filename prefix.\n\nFix: open the supplier '%(supplier)s' and set its Reference to e.g. 'TGH', then retry the import."
+msgstr "De geselecteerde leverancier mist een Referentie (Interne referentie).\n\nWaarom dit belangrijk is: deze import controleert of het geüploade bestand bij de gekozen leverancier hoort door te kijken naar de prefix van de bestandsnaam.\n\nOplossing: open de leverancier '%(supplier)s' en zet de Referentie bijvoorbeeld op 'TGH', en probeer daarna opnieuw te importeren."
+
+#. module: vendor_import_module
+#: code:addons/vendor_import_module/wizards/vendor_import_wizard.py:0
+msgid "Wrong file for the selected supplier.\n\nExpected: filename must start with supplier Reference '%(prefix)s' (uppercase).\nExample: '%(prefix)s producten ....xlsx'\n\nSelected supplier: %(supplier)s\nSupplier Reference: %(prefix)s\nSelected file: %(filename)s\n\nFix: either select the correct supplier in the wizard, or rename the file so it starts with '%(prefix)s'."
+msgstr "Verkeerd bestand voor de geselecteerde leverancier.\n\nVerwacht: de bestandsnaam moet beginnen met de leveranciersreferentie '%(prefix)s' (hoofdletters).\nVoorbeeld: '%(prefix)s producten ....xlsx'\n\nGeselecteerde leverancier: %(supplier)s\nLeveranciersreferentie: %(prefix)s\nGeselecteerd bestand: %(filename)s\n\nOplossing: selecteer de juiste leverancier in de wizard, of hernoem het bestand zodat het begint met '%(prefix)s'."
+
+#. module: vendor_import_module
+#: code:addons/vendor_import_module/wizards/vendor_import_wizard.py:0
+msgid "The uploaded Excel file is empty."
+msgstr "Het geüploade Excel-bestand is leeg."
+
+#. module: vendor_import_module
+#: code:addons/vendor_import_module/wizards/vendor_import_wizard.py:0
+msgid "Could not read the uploaded Excel file."
+msgstr "Kon het geüploade Excel-bestand niet lezen."

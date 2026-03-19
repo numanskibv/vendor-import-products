@@ -1,0 +1,34 @@
+{
+    "name": "Vendor Import Module",
+    "version": "18.0.1.0.1",
+    "category": "Inventory",
+    "summary": "Vendor import wizard scaffolding (TGH).",
+    "author": "Numanski IT Solutions",
+    "website": "https://www.numanski.nl",
+    "depends": [
+        "stock",
+        "product",
+        "purchase",
+        "website_sale",
+    ],
+    "data": [
+        # Data files (cron, explicit ir.model records)
+        "data/cron.xml",
+        "data/ir_model_data.xml",  # New file for explicit ir.model records
+        # View files
+        "views/res_partner_views.xml",
+        "views/vendor_import_settings_views.xml",
+        "views/vendor_import_image_queue_views.xml",
+        "views/vendor_import_wizard_views.xml",
+        "views/vendor_import_profile_views.xml",
+        "views/vendor_attribute_normalization_rule_views.xml",
+        "views/vendor_category_rule_views.xml",
+        "views/product_brand_views.xml",
+        "views/product_template_views.xml",
+        "views/vendor_import_help_views.xml",
+        "security/ir_access_rules.xml",  # Nieuw bestand voor toegangsregels
+    ],
+    "installable": True,
+    "application": False,
+    "license": "LGPL-3",
+}

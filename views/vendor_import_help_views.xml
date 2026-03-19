@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_vendor_import_help_form" model="ir.ui.view">
+        <field name="name">vendor.import.help.form</field>
+        <field name="model">vendor.import.help</field>
+        <field name="arch" type="xml">
+            <form string="Handleiding Vendor Import">
+                <sheet>
+                    <group>
+                        <field name="content" nolabel="1" readonly="1"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Sluiten" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_vendor_import_help" model="ir.actions.act_window">
+        <field name="name">Handleiding Vendor Import</field>
+        <field name="res_model">vendor.import.help</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_vendor_import_help_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        id="menu_vendor_import_help"
+        name="Handleiding &amp; prompt"
+        parent="menu_vendor_import_root"
+        action="action_vendor_import_help"
+        sequence="50"
+    />
+</odoo>

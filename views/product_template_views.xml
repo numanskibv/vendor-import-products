@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Toon merk op producttemplateformulier en -lijst -->
+    <record id="view_product_template_form_inherit_brand" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.brand</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <!-- Voeg merk toe naast categorie -->
+            <xpath expr="//field[@name='categ_id']" position="after">
+                <field name="brand_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_product_template_tree_inherit_brand" model="ir.ui.view">
+        <field name="name">product.template.tree.inherit.brand</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <!-- Toon merk in de lijstweergave -->
+            <xpath expr="//field[@name='categ_id']" position="after">
+                <field name="brand_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

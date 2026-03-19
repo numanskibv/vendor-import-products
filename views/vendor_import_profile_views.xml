@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_vendor_import_profile_tree" model="ir.ui.view">
+        <field name="name">vendor.import.profile.tree</field>
+        <field name="model">vendor.import.profile</field>
+        <field name="arch" type="xml">
+            <list string="Importprofielen" default_order="name">
+                <field name="active"/>
+                <field name="name"/>
+                <field name="vendor_id"/>
+                <field name="code"/>
+                <field name="file_prefix"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_vendor_import_profile_form" model="ir.ui.view">
+        <field name="name">vendor.import.profile.form</field>
+        <field name="model">vendor.import.profile</field>
+        <field name="arch" type="xml">
+            <form string="Importprofiel">
+                <sheet>
+                    <group>
+                        <field name="active"/>
+                        <field name="name"/>
+                    </group>
+                    <group string="Scope">
+                        <field name="vendor_id"/>
+                        <field name="code"/>
+                        <field name="file_prefix"/>
+                    </group>
+                    <group string="Voorbeeld voor Suggesties">
+                        <field name="example_headers"/>
+                        <button name="action_suggest_mapping" string="Suggest Mapping" type="object" class="btn-secondary"/>
+                    </group>
+                    <notebook>
+                        <page string="Kolommapping">
+                            <field name="line_ids">
+                                <list string="Kolommapping" editable="bottom">
+                                    <field name="sequence" string="Volgorde"/>
+                                    <field name="role"/>
+                                    <field name="header_pattern" string="Kolomkop Patroon"/>
+                                    <field name="required"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_vendor_import_profile" model="ir.actions.act_window">
+        <field name="name">Importprofielen</field>
+        <field name="res_model">vendor.import.profile</field>
+        <field name="view_mode">list,form</field>
+        <field name="target">current</field>
+    </record>
+
+</odoo>

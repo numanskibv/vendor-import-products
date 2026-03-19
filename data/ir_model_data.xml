@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="model_vendor_attribute_normalization_wizard" model="ir.model">
+        <field name="name">Normalisatie van attributen voor import</field>
+        <field name="model">vendor.attribute.normalization.wizard</field>
+    </record>
+
+    <record id="model_vendor_attribute_normalization_mapping" model="ir.model">
+        <field name="name">Mapping van ruwe naar genormaliseerde waarde</field>
+        <field name="model">vendor.attribute.normalization.mapping</field>
+    </record>
+
+    <record id="model_vendor_attribute_normalization_rule" model="ir.model">
+        <field name="name">Vendor Attribute Normalization Rule</field>
+        <field name="model">vendor.attribute.normalization.rule</field>
+    </record>
+
+    <!-- Note: For regular models.Model, Odoo usually creates these records automatically.
+         However, explicitly defining them here ensures their presence and order. -->
+</odoo>

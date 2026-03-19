@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_vendor_import_image_queue_tree" model="ir.ui.view">
+        <field name="name">vendor.import.image.queue.tree</field>
+        <field name="model">vendor.import.image.queue</field>
+        <field name="arch" type="xml">
+            <list string="Afbeeldingenwachtrij" default_order="create_date asc, id asc">
+                <field name="state"/>
+                <field name="vendor_id"/>
+                <field name="product_tmpl_id"/>
+                <field name="product_id"/>
+                <field name="url"/>
+                <field name="attempts"/>
+                <field name="last_try_date"/>
+                <field name="done_date"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_vendor_import_image_queue_form" model="ir.ui.view">
+        <field name="name">vendor.import.image.queue.form</field>
+        <field name="model">vendor.import.image.queue</field>
+        <field name="arch" type="xml">
+            <form string="Afbeeldingstaak">
+                <header>
+                    <button
+                        name="action_reset_vendor_queue"
+                        type="object"
+                        string="Reset queue voor leverancier"
+                        class="btn-danger"
+                    />
+                </header>
+                <sheet>
+                    <group>
+                        <field name="state"/>
+                        <field name="vendor_id"/>
+                        <field name="url"/>
+                    </group>
+                    <group string="Product">
+                        <field name="product_tmpl_id"/>
+                        <field name="product_id"/>
+                    </group>
+                    <group string="Statusdetails">
+                        <field name="attempts"/>
+                        <field name="last_try_date"/>
+                        <field name="done_date"/>
+                        <field name="last_error" widget="text"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_vendor_import_image_queue" model="ir.actions.act_window">
+        <field name="name">Afbeeldingenwachtrij</field>
+        <field name="res_model">vendor.import.image.queue</field>
+        <field name="view_mode">list,form</field>
+        <field name="target">current</field>
+        <field name="context">{'search_default_group_by_vendor': 1, 'search_default_pending': 1}</field>
+    </record>
+
+    <record id="view_vendor_import_image_queue_search" model="ir.ui.view">
+        <field name="name">vendor.import.image.queue.search</field>
+        <field name="model">vendor.import.image.queue</field>
+        <field name="arch" type="xml">
+            <search string="Afbeeldingenwachtrij">
+                <field name="vendor_id"/>
+                <field name="product_tmpl_id"/>
+                <field name="product_id"/>
+                <field name="url"/>
+                <filter name="pending" string="In wachtrij" domain="[('state', '=', 'pending')]"/>
+                <filter name="done" string="Gereed" domain="[('state', '=', 'done')]"/>
+                <filter name="error" string="Fout" domain="[('state', '=', 'error')]"/>
+                <filter name="group_by_vendor" string="Groepeer per leverancier" context="{'group_by': 'vendor_id'}"/>
+                <filter name="group_by_state" string="Groepeer per status" context="{'group_by': 'state'}"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Menu onder Vendor Import -->
+    <menuitem
+        id="menu_vendor_import_image_queue"
+        name="Afbeeldingenwachtrij"
+        parent="menu_vendor_import_root"
+        action="action_vendor_import_image_queue"
+        sequence="80"
+    />
+
+</odoo>

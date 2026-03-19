@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_vendor_attribute_normalization_rule_list" model="ir.ui.view">
+        <field name="name">vendor.attribute.normalization.rule.list</field>
+        <field name="model">vendor.attribute.normalization.rule</field>
+        <field name="arch" type="xml">
+            <list string="Attribute Normalization Rules">
+                <field name="vendor_id" optional="show"/>
+                <field name="attribute_type"/>
+                <field name="raw_value"/>
+                <field name="normalized_value"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_vendor_attribute_normalization_rule_form" model="ir.ui.view">
+        <field name="name">vendor.attribute.normalization.rule.form</field>
+        <field name="model">vendor.attribute.normalization.rule</field>
+        <field name="arch" type="xml">
+            <form string="Attribute Normalization Rule">
+                <sheet>
+                    <group>
+                        <field name="vendor_id"/>
+                        <field name="attribute_type"/>
+                        <field name="raw_value"/>
+                        <field name="normalized_value"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View for better filtering -->
+    <record id="view_vendor_attribute_normalization_rule_search" model="ir.ui.view">
+        <field name="name">vendor.attribute.normalization.rule.search</field>
+        <field name="model">vendor.attribute.normalization.rule</field>
+        <field name="arch" type="xml">
+            <search string="Search Normalization Rules">
+                <field name="raw_value"/>
+                <field name="normalized_value"/>
+                <separator/>
+                <filter string="Kleuren" name="filter_color" domain="[('attribute_type', '=', 'color')]"/>
+                <filter string="Maten" name="filter_size" domain="[('attribute_type', '=', 'size')]"/>
+                <separator/>
+                <filter string="Zonder Leverancier" name="filter_no_vendor" domain="[('vendor_id', '=', False)]"/>
+                <group expand="0" string="Groeperen op">
+                    <filter string="Leverancier" name="group_by_vendor" context="{'group_by': 'vendor_id'}"/>
+                    <filter string="Attribuut Type" name="group_by_attribute_type" context="{'group_by': 'attribute_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_vendor_attribute_normalization_rule" model="ir.actions.act_window">
+        <field name="name">Attribute Normalization Rules</field>
+        <field name="res_model">vendor.attribute.normalization.rule</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_vendor_attribute_normalization_rule_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Maak een nieuwe normalisatieregel voor attributen aan.
+            </p><p>
+                Deze regels stellen je in staat om ruwe attribuutwaarden uit leveranciersbestanden (bijv. "donkerblauw") automatisch om te zetten naar gestandaardiseerde Odoo-waarden (bijv. "Blauw").
+            </p>
+        </field>
+    </record>
+
+    <!--
+        The parent attribute is changed to the full external ID 'vendor_import_module.menu_vendor_import_root'.
+        This is a more robust way to reference the parent menu and likely solves the issue of the menu item not appearing.
+    -->
+    <menuitem
+        id="menu_vendor_attribute_normalization_rule"
+        name="Attribute Normalization"
+        parent="vendor_import_module.menu_vendor_import_root"
+        action="action_vendor_attribute_normalization_rule"
+        sequence="25"/>
+
+</odoo>

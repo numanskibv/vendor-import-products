@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_vendor_import_wizard_form" model="ir.ui.view">
+        <field name="name">vendor.import.wizard.form</field>
+        <field name="model">vendor.import.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Import leveranciers-Excel">
+                <sheet>
+                    <notebook>
+                        <page string="Import">
+                            <group>
+                                <field name="vendor_id" options="{'no_create': True}" required="1"/>
+                                <field name="manual_profile_id" options="{'no_create': True}"/>
+                                <field name="file" filename="filename" widget="binary"/>
+                                <field name="filename" invisible="1" force_save="1"/>
+                                <field name="wizard_record_id" invisible="1" force_save="1"/>
+                                <field name="margin_percentage"/>
+                                <field name="overwrite_prices"/>
+                                <field name="archive_missing_variants"/>
+                                <field name="publish_products"/>
+                                <field name="apply_category_rules"/>
+                                <field name="create_new_categories"/>
+                                <field name="category_creation_scan_header" modifiers="{'invisible': [('create_new_categories', '=', False)]}" placeholder="Bijv. Categorie / Category / Merk"/>
+                                <field name="test_passed" invisible="1" force_save="1"/>
+                                <field name="test_file_sha1" invisible="1" force_save="1"/>
+                            </group>
+                            <group>
+                                <field name="vendor_manual_html" nolabel="1" readonly="1"/>
+                            </group>
+                            <group string="Image Queue" modifiers="{'invisible': [('vendor_id', '=', False)]}">
+                                <field name="image_queue_pending_count" readonly="1"/>
+                                <field name="image_queue_done_count" readonly="1"/>
+                                <field name="image_queue_error_count" readonly="1"/>
+                                <field name="image_queue_total_count" readonly="1"/>
+                            </group>
+                            <group modifiers="{'invisible': [('test_report_html', '=', False)]}">
+                                <field name="test_report_html" nolabel="1" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="Analyse">
+                            <group string="Draft rule settings">
+                                <group>
+                                    <field name="create_draft_rules"/>
+                                    <field name="draft_vendor_code"/>
+                                </group>
+                                <group>
+                                    <field name="draft_priority_base"/>
+                                    <field name="draft_active"/>
+                                </group>
+                            </group>
+                            <group string="Category creation" modifiers="{'invisible': [('create_new_categories', '=', False)]}">
+                                <field name="category_creation_scan_header" placeholder="Plak hier de kolomnaam uit Excel"/>
+                            </group>
+                            <group string="Analysis report">
+                                <field name="analysis_log" nolabel="1" widget="text" readonly="1"/>
+                            </group>
+                            <group>
+                                <button name="action_analyse_import_file" type="object" string="Analyse" class="btn-secondary"/>
+                                <button name="action_create_draft_rules" type="object" string="Create draft rules" class="btn-primary" modifiers="{'invisible': [('create_draft_rules', '=', False)]}"/>
+                            </group>
+                            <separator string="Draft rules are created as inactive by default so they can be reviewed and adjusted before activation."/>
+                        </page>
+                            <page string="Normalisatie">
+                                <group>
+                                    <button name="open_attribute_normalization_wizard" string="Open normalisatie-wizard" type="object" class="oe_highlight"/>
+                                    <div>
+                                        <p class="oe_grey">Gebruik deze wizard om attributen (kleur, maat) te normaliseren voordat je importeert.</p>
+                                    </div>
+                                </group>
+                            </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button name="action_test_tgh" type="object" string="Test" class="btn-secondary"/>
+                    <button
+                        name="action_process_images_now"
+                        type="object"
+                        string="Process images now"
+                        class="btn-secondary"
+                        modifiers="{'invisible': ['|', ('vendor_id', '=', False), ('image_queue_pending_count', '=', 0)]}"
+                    />
+                    <button
+                        name="action_reset_image_queue"
+                        type="object"
+                        string="Reset image queue"
+                        class="btn-secondary"
+                        modifiers="{'invisible': ['|', ('vendor_id', '=', False), ('image_queue_total_count', '=', 0)]}"
+                    />
+                    <button
+                        name="action_import_tgh"
+                        type="object"
+                        string="Import"
+                        class="btn-primary"
+                        confirm="Deze import wijzigt producten/varianten en kan niet eenvoudig ongedaan worden gemaakt. Maak eerst een backup. Doorgaan?"
+                        modifiers="{'invisible': [('test_passed', '=', False)]}"
+                    />
+                    <button string="Cancel" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_vendor_import_tgh" model="ir.actions.act_window">
+        <field name="name">Import leveranciers-Excel</field>
+        <field name="res_model">vendor.import.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_vendor_import_wizard_form"/>
+        <!-- Open als popup-wizard (geen Nieuw/Opslaan-balk). -->
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_vendor_import_tgh" name="Import leveranciers-Excel" parent="menu_vendor_import_root" action="action_vendor_import_tgh" sequence="10"/>
+</odoo>
